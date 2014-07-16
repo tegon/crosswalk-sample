@@ -1,5 +1,6 @@
 package com.tegon.crosswalksample;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import org.xwalk.core.XWalkView;
 public class XWalkActivity extends Activity {
     private XWalkView mWebView;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
