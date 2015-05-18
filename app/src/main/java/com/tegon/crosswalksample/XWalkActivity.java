@@ -1,43 +1,55 @@
 package com.tegon.crosswalksample;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 
+import org.xwalk.core.XWalkPreferences;
 import org.xwalk.core.XWalkView;
 
 
 public class XWalkActivity extends Activity {
     private XWalkView mWebView;
 
-    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xwalk);
+
+        if (BuildConfig.DEBUG) {
+            XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
+        }
+
         mWebView = (XWalkView) findViewById(R.id.webView);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.load("http://google.com", null);
+        mWebView.load("https://get.webgl.org", null);
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
-        mWebView.pauseTimers();
-        mWebView.onHide();
+
+        if (mWebView != null) {
+            mWebView.pauseTimers();
+            mWebView.onHide();
+        }
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        mWebView.resumeTimers();
-        mWebView.onShow();
+
+        if (mWebView != null) {
+            mWebView.resumeTimers();
+            mWebView.onShow();
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mWebView.load("about:blank", null);
-        mWebView.onDestroy();
+
+        if (mWebView != null) {
+            mWebView.load("about:blank", null);
+            mWebView.onDestroy();
+        }
     }
 }

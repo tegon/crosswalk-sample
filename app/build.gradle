@@ -1,19 +1,36 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 21
     buildToolsVersion '19.1.0'
 
     defaultConfig {
         applicationId "com.tegon.crosswalksample"
         minSdkVersion 15
-        targetSdkVersion 19
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
+
+    productFlavors {
+        x86 {
+            versionCode 1
+            ndk {
+                abiFilters "x86", ""
+            }
+        }
+
+        arm {
+            versionCode 2
+            ndk {
+                abiFilters "armeabi-v7a", ""
+            }
+        }
+    }
+
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -21,5 +38,5 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':crosswalk-webview-7.36.146.0-arm')
+    compile 'org.xwalk:xwalk_core_library:13.42.319.11'
 }

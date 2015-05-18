@@ -1,2 +1,1 @@
-include ':app', ':crosswalk-webview-7.36.146.0-arm'
-project(':crosswalk-webview-7.36.146.0-arm').projectDir = new File('libraries/crosswalk-webview-7.36.146.0-arm')
+include ':app'
